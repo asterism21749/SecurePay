@@ -1,0 +1,4 @@
+mvn install:install-file -DgroupId=unionpay -DartifactId=securepay -Dversion=1.1.8 -Dfile=lib/bcprov-jdk15on-1.54.jar -Dpackaging=jar -DgeneratePom=true
+
+
+mvn install:install-file -DgroupId=unionpay -DartifactId=codec -Dversion=1.1.8 -Dfile=lib/commons-codec-1.6.jar -Dpackaging=jar -DgeneratePom=true
