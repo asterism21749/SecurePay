@@ -1,0 +1,20 @@
+spring:
+  config:
+    name: application
+  profiles:
+    include: database-prod,server
+#  devtools:
+#    livereload:
+#      enabled: true
+#      port: 35792
+#    restart:
+#      enabled: true
+#      additional-paths: src/main/java
+#      #      默认情况下，/META-INF/maven，/META-INF/resources，/resources，/static，/templates，/public
+#      #      这些文件夹下的文件修改不会使应用重启，但是会重新加载（devtools内嵌了一个LiveReload server，当资源发生改变时，浏览器刷新）
+#      exclude: src/main/resources
+# 设置log4j2的配置文件
+#logging:
+#  config: classpath:log4j2-spring.xml
+logging:
+  config: classpath:log4j2.yml

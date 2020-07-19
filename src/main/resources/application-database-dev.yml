@@ -1,0 +1,81 @@
+spring:
+  datasource:
+    # 配置druid数据库连接池
+    druid:
+      # 加密命令java -cp druid-1.1.10.jar com.alibaba.druid.filter.config.ConfigTools your_password
+      # 设置密码解码，config.decrypt.key为publicKey
+      #connection-properties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIjmMcbpxf5kf4+WEaIZUZ63YquYmu1Bj6QDuc0S6eH6x+7DozkLEWZHySRpSok0iB1fIvRKfHavehDhMNsDpGECAwEAAQ==
+      # JDBC配置
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # url中不写时区 serverTimezone=GMT%2B8 会在连接数据库时抛出异常
+      url: jdbc:mysql://127.0.0.1:3306/sunmange?serverTimezone=GMT%2B8&characterEncoding=utf8&characterSetResults=utf8
+      username: root
+      # 此处写的是加密过后的密码password
+      password:
+      #  连接池配置
+      #  <!-- 配置初始化大小、最小、最大 -->
+      initial-size: 1
+      max-active: 20
+      min-idle: 1
+      #        <!-- 配置获取连接等待超时的时间 -->
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      validation-query: show status like '%Service_Status%'
+      validation-query-timeout: 60000
+      # test-on-borrow/test-on-return 开启后会略降低性能
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      #      <!-- 配置间隔多久才进  行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+      time-between-eviction-runs-millis: 2000
+      #      <!-- 配置一个连接在池中最小/大生存的时间，单位是毫秒 -->
+      min-evictable-idle-time-millis: 3000
+      max-evictable-idle-time-millis: 900000
+      max-pool-prepared-statement-per-connection-size: 20
+      #      建议配置keepAlive=true
+      keep-alive: true
+      async-init: true
+      #      filters: stat,wall
+      #      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      filter:
+        stat:
+          enabled: true
+          merge-sql: true
+          slow-sql-millis: 5000
+          db-type: mysql
+        log4j2:
+          enabled: true
+        wall:
+          enabled: true
+        config:
+          enabled: true
+
+      #  监控配置
+      #     WebStatFilter配置，参考Druid Wiki
+      web-stat-filter: # 是否启用StatFilter默认值true
+        enabled: true
+      #        url-pattern:
+      #        exclusions:
+      #        session-stat-enable:
+      #        session-stat-max-count:
+      #        principal-session-name:
+      #        principal-cookie-na4me:
+      #        profile-enable:
+      # StatViewServlet配置，说明请参考Druid Wiki，配置_StatViewServlet配置
+      stat-view-servlet:
+        enabled: true
+        #        url-pattern:
+        #        reset-enable:
+        #        login-username: admin
+        #        login-password: admin
+        #        allow:
+        #        deny:
+
+      # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
+      #      spring.datasource.druid.aop-patterns= # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+#      aop-patterns: com.dhee.*
+#打印sql，方便调试
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

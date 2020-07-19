@@ -1,0 +1,4 @@
+server:
+  port: 9445
+  tomcat:
+    uri-encoding: utf-8
