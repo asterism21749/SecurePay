@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.TimeZone;
 
 @Component
 public class SecurePayUtil {
@@ -30,6 +31,8 @@ public class SecurePayUtil {
 
     //流水号加1后返回，流水号长度为12
     private static final String STR_FORMAT = "000000000000";
+
+    private static final String time_zone = "Asia/Shanghai";
 
     /**
      * 获取订单时间
@@ -44,6 +47,7 @@ public class SecurePayUtil {
         String format = "YYYYMMddHHmmss";
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        dateFormat.setTimeZone(TimeZone.getTimeZone(time_zone));
         txnTime = dateFormat.format(now);
 
         return txnTime;
@@ -62,6 +66,7 @@ public class SecurePayUtil {
         String format = "YYYYMMdd";
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        dateFormat.setTimeZone(TimeZone.getTimeZone(time_zone));
         fcbpdt = dateFormat.format(now);
 
         return fcbpdt;
@@ -137,11 +142,11 @@ public class SecurePayUtil {
 
         JSONObject json = JSONObject.parseObject(JSON.toJSONString(map));
 
-        logger.info("-----------------------开始 打印Map-----------------------\r\n");
+        logger.info("-----------------------开始 打印Map-----------------------");
 
         logger.info(json.toJSONString());
 
-        logger.info("-----------------------结束 打印Map-----------------------\r\n");
+        logger.info("-----------------------结束 打印Map-----------------------");
 
 
     }
@@ -154,9 +159,23 @@ public class SecurePayUtil {
      */
     public String dealTranAmount(String tranam) {
 
-
         DecimalFormat df1 = new DecimalFormat("0");
         String txnAmt_str = df1.format(Double.parseDouble(tranam) * 100);
+
+        return txnAmt_str;
+    }
+
+    /**
+     * 金额转换，金额/100
+     *
+     * @param txnAmt
+     * @return
+     */
+    public String dealTranAmount2Number(String txnAmt) {
+
+
+        DecimalFormat df1 = new DecimalFormat("0.00");
+        String txnAmt_str = df1.format(Double.parseDouble(txnAmt) / 100);
 
         return txnAmt_str;
     }
